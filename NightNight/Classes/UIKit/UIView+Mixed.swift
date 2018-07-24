@@ -37,6 +37,14 @@ public extension UIView {
             setMixedColor(&Keys.tintColor, value: newValue)
         }
     }
+
+    public var mixedAlpha: MixedResource<CGFloat>? {
+        get { return getMixed(&Keys.alpha) }
+        set {
+            alpha = newValue?.unfold() ?? 1
+            setMixed(&Keys.alpha, value: newValue)
+        }
+    }
     
 
     override func _updateCurrentStatus() {
@@ -48,6 +56,10 @@ public extension UIView {
         
         if let mixedTintColor = mixedTintColor {
             tintColor = mixedTintColor.unfold()
+        }
+
+        if let mixedAlpha = mixedAlpha {
+            alpha = mixedAlpha.unfold()
         }
         
     }

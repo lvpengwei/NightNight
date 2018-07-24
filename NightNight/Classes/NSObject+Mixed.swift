@@ -18,6 +18,14 @@ extension NSObject {
 
         addNightObserver(#selector(_updateTheme))
     }
+    func getMixed<T>(_ key: UnsafeRawPointer) -> MixedResource<T>? {
+        return objc_getAssociatedObject(self, key) as? MixedResource<T>
+    }
+    func setMixed<T>(_ key: UnsafeRawPointer, value: MixedResource<T>?) {
+        objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
+        addNightObserver(#selector(_updateTheme))
+    }
 
     @objc func _updateTheme() {
         UIView.beginAnimations(nil, context: nil)

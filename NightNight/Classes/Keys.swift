@@ -31,6 +31,7 @@ struct Keys {
     
     static var keyboardAppearance            = "keyboardAppearance"
     static var sectionIndexBackgroundColor   = "sectionIndexBackground"
+    static var alpha                         = "alpha"
 }
 
 struct NormalKeys {
