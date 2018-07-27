@@ -21,7 +21,10 @@
 import Foundation
 
 public extension UITextView {
-    
+
+    fileprivate struct AssociatedKeys {
+        static var mixedKeyboardAppearanceKey = "mixedKeyboardAppearanceKey"
+    }
     public var mixedTextColor: MixedColor? {
         get { return getMixedColor(&Keys.textColor) }
         set {
@@ -29,7 +32,15 @@ public extension UITextView {
             setMixedColor(&Keys.textColor, value: newValue)
         }
     }
-    
+    public var mixedKeyboardAppearance: MixedResource<UIKeyboardAppearance>? {
+        get {
+            return getMixed(&AssociatedKeys.mixedKeyboardAppearanceKey)
+        }
+        set {
+            keyboardAppearance = newValue?.unfold() ?? .default
+            setMixed(&AssociatedKeys.mixedKeyboardAppearanceKey, value: newValue)
+        }
+    }
 
     override func _updateCurrentStatus() {
         super._updateCurrentStatus()
@@ -37,6 +48,9 @@ public extension UITextView {
         if let mixedTextColor = mixedTextColor {
             textColor = mixedTextColor.unfold()
         }
-        
+
+        if let mixedKeyboardAppearance = mixedKeyboardAppearance {
+            keyboardAppearance = mixedKeyboardAppearance.unfold()
+        }
     }
 }
